@@ -38,70 +38,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
 
-    const products = {
-        1: {
-            image: '../images/product1.jpeg',
-            title: 'Product 1',
-            description: 'Detailed description of Product 1.',
-            price: '$29.99'
-        },
-        2: {
-            image: '../images/product2.jpeg',
-            title: 'Product 2',
-            description: 'Detailed description of Product 2.',
-            price: '$39.99'
-        },
-        3: {
-            image: '../images/product3.jpeg',
-            title: 'Product 3',
-            description: 'Detailed description of Product 2.',
-            price: '$40.99'
-        },
-        4: {
-            image: '../images/product4.jpeg',
-            title: 'Product 4',
-            description: 'Detailed description of Product 2.',
-            price: '$30.99'
-        },
-        5: {
-            image: '../images/product5.jpeg',
-            title: 'Product 5',
-            description: 'Detailed description of Product 2.',
-            price: '$29.99'
-        },
-        6: {
-            image: '../images/product6.jpeg',
-            title: 'Product 6',
-            description: 'Detailed description of Product 2.',
-            price: '$29.99'
+
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+    const API_BASE_URL = "http://localhost/Wafra/PHP";
+
+    // Function to handle form submission
+    async function handleSubmit(url, formData) {
+        const response = await fetch(`${API_BASE_URL}/${url}`, {
+            method: "POST",
+            body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+            alert(result.message);
+            window.location.href = "Products.html";
+        } else {
+            alert(result.message);
         }
-        
-    };
-
-    const product = products[productId];
-    if (product) {
-        document.getElementById('product-image').src = product.image;
-        document.getElementById('product-title').textContent = product.title;
-        document.getElementById('product-description').textContent = product.description;
-        document.getElementById('product-price').textContent = product.price;
-    } else {
-        document.querySelector('.product-details').innerHTML = '<p>Product not found.</p>';
     }
+
+    // Handle login form submission
+    loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const formData = new FormData(loginForm);
+        handleSubmit("login.php", formData);
+    });
+
+    // Handle register form submission
+    registerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const formData = new FormData(registerForm);
+        handleSubmit("register.php", formData);
+    });
+
+    // Toggle between login and register forms
+    document.getElementById("show-register").addEventListener("click", function (event) {
+        event.preventDefault();
+        loginForm.classList.add("hidden");
+        registerForm.classList.remove("hidden");
+    });
+
+    document.getElementById("show-login").addEventListener("click", function (event) {
+        event.preventDefault();
+        registerForm.classList.add("hidden");
+        loginForm.classList.remove("hidden");
+    });
 });
 
-document.getElementById("delivery-form").addEventListener("submit", function(event) {
-    event.preventDefault();
-    let selectedWilaya = document.getElementById("wilaya").value;
-    
-    if (selectedWilaya) {
-        alert("Wilaya selectionnée: " + selectedWilaya);
-    } else {
-        alert("s'il vous plait, selectionnez une Wilaya.");
-    }
-});
+
 
