@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         session_start();
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['full_name'];
+        $_SESSION['user_email'] = $email; 
 
         echo json_encode(["status" => "success", "message" => "Login successful!"]);
     } else {
