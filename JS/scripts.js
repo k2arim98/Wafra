@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const registerForm = document.getElementById("register-form");
     const API_BASE_URL = "http://localhost/Wafra/PHP";
 
-    // Function to handle form submission
     async function handleSubmit(url, formData) {
         const response = await fetch(`${API_BASE_URL}/${url}`, {
             method: "POST",
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (result.status === "success") {
             alert(result.message);
-            window.location.href = "Products.html";
+            window.location.href = "./Products.php";
         } else {
             alert(result.message);
         }
