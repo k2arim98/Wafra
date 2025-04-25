@@ -3,7 +3,7 @@ session_start();
 include '../PHP/config.php';
 
 if (!isset($_SESSION['user_email'])) {
-    header('Location: login.php');
+    header('Location: /Wafra/HTML/loginRegisterPage.html');
     exit;
 }
 

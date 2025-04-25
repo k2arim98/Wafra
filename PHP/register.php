@@ -1,6 +1,8 @@
 <?php
 require 'config.php';  // Database connection
 
+session_start();  // Start the session at the top to avoid any header issues
+
 header("Content-Type: application/json"); // Ensure response is JSON
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -8,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = isset($_POST['email']) ? trim($_POST['email']) : null;
     $password = isset($_POST['password']) ? $_POST['password'] : null;
 
+    // Validate input
     if (!$full_name || !$email || !$password) {
         echo json_encode(["status" => "error", "message" => "All fields are required!"]);
         exit();
@@ -32,6 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sss", $full_name, $email, $hashed_password);
 
     if ($stmt->execute()) {
+        // Fetch the user details after insertion
+        $user_id = $stmt->insert_id; // Get the ID of the inserted user
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['user_name'] = $full_name;
+        $_SESSION['user_email'] = $email;
+
         echo json_encode(["status" => "success", "message" => "Registration successful!"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Error during registration!"]);

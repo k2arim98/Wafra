@@ -1,7 +1,7 @@
 <?php
 $host = "localhost"; 
 $user = "root";  
-$pass = "root";  // MAMP default for macOS (use "" if on Windows)
+$pass = "root";  
 $dbname = "wafra";
 
 // Connect to MySQL

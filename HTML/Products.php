@@ -3,7 +3,7 @@ session_start();
 include '../PHP/config.php';
 
 // Fetch products from database
-$sql = "SELECT id, name, price, image FROM products";
+$sql = "SELECT id, name, price, image,category,description FROM products";
 $result = $conn->query($sql);
 ?>
 
@@ -26,8 +26,9 @@ $result = $conn->query($sql);
         <ul class="nav-links">
             <li><a href="index.html">Accueil</a></li>
             <li><a href="#products">Produits</a></li>
-            <li><a href="">À propos</a></li>
             <li><a href="#social">Contact</a></li>
+            <li><a href="loginRegisterPage.html">Compte</a></li>
+
         </ul>
     </nav>
 
@@ -40,6 +41,7 @@ $result = $conn->query($sql);
                     <div class="product-item" >
                         <img src="../images/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
                         <h3><?php echo $row['name']; ?></h3>
+                        <h4><?php echo $row['category']; ?></h4>
                         <p>$<?php echo number_format($row['price'], 2); ?></p>
                         <a href="details_page.php?id=<?php echo $row['id']; ?>" class="cta-button">View Details</a>
                     </div>

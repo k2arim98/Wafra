@@ -4,6 +4,7 @@ include 'config.php';
 
 if (!isset($_SESSION['user_email'])) {
     die("Utilisateur non connecté.");
+
 }
 
 if (!isset($_GET['id'])) {

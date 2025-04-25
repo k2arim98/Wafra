@@ -1,10 +1,6 @@
 <?php
-// Connect to database
-$conn = new mysqli("localhost", "root", "root", "wafra");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+session_start();
+include '../PHP/config.php';
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     die("Erreur: Produit non trouvé !");
@@ -39,10 +35,11 @@ $conn->close();
             <span>Wafra</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#">Accueil</a></li>
+            <li><a href="index.html">Accueil</a></li>
             <li><a href="#products">Produits</a></li>
-            <li><a href="">À propos</a></li>
             <li><a href="#social">Contact</a></li>
+            <li><a href="account.php">Compte</a></li>
+
         </ul>
     </nav>
 
@@ -56,6 +53,7 @@ $conn->close();
                     <h1 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h1>
                     <p class="product-description"><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
                     <p class="product-price">Prix: $<?php echo number_format($product['price'], 2); ?></p>
+                    <h4><?php echo $product['category']; ?></h4>
                     <a href="../PHP/add_to_cart.php?id=<?php echo $product['id']; ?>" class="cta-button">
     Ajouter au panier
 </a>
