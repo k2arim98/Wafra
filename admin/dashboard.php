@@ -80,6 +80,9 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
     <h3>Add New Product</h3>
     <form action="../PHP/add_product.php" method="post" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Product Name" required>
+      <input type="text" name="category" placeholder="Product Category" required>
+      <input type="text" name="description" placeholder="Product Description" required>
+
       <input type="number" step="0.01" name="price" placeholder="Price" required>
       <input type="file" name="image" required>
       <button type="submit">Add Product</button>

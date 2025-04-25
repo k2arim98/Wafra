@@ -5,6 +5,8 @@ include 'config.php';
 $name = '';
 $price = '';
 $imageName = '';
+$category = '';
+$description = '';
 $productId = null;
 
 // Check if 'edit' is set in the URL to fetch product data
@@ -22,6 +24,9 @@ if (isset($_GET['edit'])) {
         $product = $result->fetch_assoc();
         $name = $product['name'];
         $price = $product['price'];
+        $category = $product['category'];
+        $description = $product['description'];
+
         $imageName = $product['image'];
     } else {
         echo "No product found for this ID.";
@@ -33,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get POST values
     $name = $_POST['name'];
     $price = $_POST['price'];
+    $category = $_POST['category'];
+    $description = $_POST['description'];
+
     $productId = isset($_POST['product_id']) ? $_POST['product_id'] : null;
     
     // Check if image is uploaded
@@ -52,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // If product ID exists, update the existing product
     if ($productId) {
-        $stmt = $conn->prepare("UPDATE products SET name = ?, price = ?, image = ? WHERE id = ?");
-        $stmt->bind_param("sdsi", $name, $price, $imageName, $productId);
+        $stmt = $conn->prepare("UPDATE products SET name = ?, price = ?, image = ?, category = ? , description = ? WHERE id = ?");
+        $stmt->bind_param("sdsssi", $name, $price, $imageName,$category,$description, $productId);
         $stmt->execute();
 
         // Check if the update was successful
@@ -64,8 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // If product ID is not set, create a new product
-        $stmt = $conn->prepare("INSERT INTO products (name, price, image) VALUES (?, ?, ?)");
-        $stmt->bind_param("sds", $name, $price, $imageName);
+        $stmt = $conn->prepare("INSERT INTO products (name, price, image,category,description) VALUES (?, ?, ?,?,?)");
+        $stmt->bind_param("sdsss", $name, $price, $imageName,$category,$description);
         $stmt->execute();
 
         // Check if the insertion was successful
@@ -108,6 +116,8 @@ if (isset($_GET['delete'])) {
       <input type="hidden" name="product_id" value="<?= $productId ?>">
     <?php endif; ?>
     <input type="text" name="name" value="<?= htmlspecialchars($name) ?>" placeholder="Product Name" required>
+    <input type="text" name="category" value="<?= htmlspecialchars($category) ?>" placeholder="Product Category" required>
+    <input type="text" name="description" value="<?= htmlspecialchars($description) ?>" placeholder="Product Description" required>
     <input type="number" step="0.01" name="price" value="<?= $price ?>" placeholder="Price" required>
     <input type="file" name="image" <?= $productId ? '' : 'required' ?>>
     <?php if ($productId && $imageName): ?>
