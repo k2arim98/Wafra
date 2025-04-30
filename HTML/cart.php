@@ -41,17 +41,17 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Votre Panier - Wafra</title>
-    <link rel="stylesheet" href="../CSS/cart.css">
+    <link rel="stylesheet" href="/Wafra/CSS/cart.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="logo">
-            <img src="../images/logo.png" alt="Logo" class="logo-img">
+            <img src="/Wafra/images/logo.png" alt="Logo" class="logo-img">
             <span>Wafra</span>
         </div>
         <ul class="nav-links">
-            <li><a href="index.html">Accueil</a></li>
+            <li><a href="index.php">Accueil</a></li>
             <li><a href="Products.php">Produits</a></li>
             <li><a href="">À propos</a></li>
             <li><a href="#social">Contact</a></li>
@@ -74,7 +74,7 @@ $conn->close();
                         </tr>
                         <?php foreach ($items as $item): ?>
                             <tr>
-                                <td><img src="../images/<?php echo $item['image']; ?>" width="50"></td>
+                                <td><img src="/Wafra/images/<?php echo $item['image']; ?>" width="50"></td>
                                 <td><?php echo htmlspecialchars($item['name']); ?></td>
                                 <td>$<?php echo number_format($item['price'], 2); ?></td>
                                 <td><?php echo $item['quantity']; ?></td>

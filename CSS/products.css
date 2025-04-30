@@ -289,3 +289,17 @@ footer {
     color: #1a4560;
     transform: scale(1.1); 
 }
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.search-form input {
+    padding: 10px;
+}
+
+.search-form button {
+    padding: 5px 10px;
+    cursor: pointer;
+}

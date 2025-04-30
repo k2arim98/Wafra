@@ -29,13 +29,13 @@ $wilayas = [
 <head>
     <meta charset="UTF-8">
     <title>Confirmation de Commande - Wafra</title>
-    <link rel="stylesheet" href="../CSS/confirm_order.css">
+    <link rel="stylesheet" href="/Wafra/CSS/confirm_order.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="logo">
-            <img src="../images/logo.png" alt="Logo" class="logo-img">
+            <img src="/Wafra/images/logo.png" alt="Logo" class="logo-img">
             <span>Wafra</span>
         </div>
     </nav>
@@ -45,7 +45,7 @@ $wilayas = [
             <div class="container">
                 <h1>Confirmer la Commande</h1>
 
-                <form action="place_order.php" method="post">
+                <form action="../PHP/place_order.php" method="post">
                     <div class="form-group">
                         <label>Nom complet</label>
                         <input type="text" name="full_name" value="<?php echo htmlspecialchars($user['full_name']); ?>" readonly>

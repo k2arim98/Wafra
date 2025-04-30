@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url('../images/loginbackground.webp'); 
+    background-image: url('/Wafra/images/loginbackground.webp'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

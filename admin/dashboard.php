@@ -4,7 +4,6 @@ session_start();
 include '../PHP/config.php';
 
 if (!isset($_SESSION['user_email']) || $_SESSION['is_admin'] != 1) {
-    // Not logged in or not an admin
     header("Location: /Wafra/HTML/loginRegisterPage.html"); 
     exit();
 }
@@ -26,19 +25,19 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
 <head>
   <meta charset="UTF-8">
   <title>Admin Panel</title>
-  <link rel="stylesheet" href="../CSS//dashboard.css">
-</head>
+  <link rel="stylesheet" href="/Wafra/CSS/dashboard.css">
+  </head>
 <body>
 <nav class="navbar">
         <div class="logo">
-            <img src="../images/logo.png" alt="Logo" class="logo-img">
+            <img src="/Wafra/images/logo.png" alt="Logo" class="logo-img">
             <span>Wafra </span>
         </div>
         <ul class="nav-links">
-            <li><a href="../HTML/index.html">Accueil</a></li>
-            <li><a href="../HTML//Products.php">Produits</a></li>
+            <li><a href="/Wafra/HTML/index.php">Accueil</a></li>
+            <li><a href="/Wafra/HTML//Products.php">Produits</a></li>
             <li><a href="#social">Contact</a></li>
-            <li><a href="../HTML/loginRegisterPage.html">Compte</a></li>
+            <li><a href="/Wafra/HTML/loginRegisterPage.html">Compte</a></li>
 
         </ul>
     </nav>
@@ -78,7 +77,7 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
   <section>
     <h2>Products</h2>
     <h3>Add New Product</h3>
-    <form action="../PHP/add_product.php" method="post" enctype="multipart/form-data">
+    <form action="/Wafra/PHP/add_product.php" method="post" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Product Name" required>
       <input type="text" name="category" placeholder="Product Category" required>
       <input type="text" name="description" placeholder="Product Description" required>
@@ -94,11 +93,11 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
       <td><?= $product['id'] ?></td>
       <td><?= htmlspecialchars($product['name']) ?></td>
       <td>$<?= number_format($product['price'], 2) ?></td>
-      <td><img src="../images/<?= htmlspecialchars($product['image']) ?>" width="50"></td>
+      <td><img src="/Wafra/images/<?= htmlspecialchars($product['image']) ?>" width="50"></td>
       <td>
-        <a href="../PHP/add_product.php?edit=<?= $product['id'] ?>">Edit</a>
+        <a href="/Wafra/PHP/add_product.php?edit=<?= $product['id'] ?>">Edit</a>
 
-        <a href="../PHP/add_product.php?delete=<?= $product['id'] ?>" onclick="return confirm('Delete this product?')">Delete</a>
+        <a href="/Wafra/PHP/add_product.php?delete=<?= $product['id'] ?>" onclick="return confirm('Delete this product?')">Delete</a>
       </td>
     </tr>
   <?php endforeach; ?>

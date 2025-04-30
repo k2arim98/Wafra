@@ -1,8 +1,17 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f0f0f0;
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    
+}
+
+body {
+    
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
 }
 .navbar {
     display: flex;

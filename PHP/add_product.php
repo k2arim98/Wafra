@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_FILES['image']['name'])) {
         $imageName = $_FILES['image']['name'];
         // Move image to the folder
-        move_uploaded_file($_FILES['image']['tmp_name'], "../images/$imageName");
+        move_uploaded_file($_FILES['image']['tmp_name'], "/Wafra/images/$imageName");
     } elseif ($productId && empty($imageName)) {
         // If editing and no new image, keep the existing one
         $stmt = $conn->prepare("SELECT image FROM products WHERE id = ?");
@@ -106,7 +106,7 @@ if (isset($_GET['delete'])) {
 <head>
   <meta charset="UTF-8">
   <title><?= $productId ? 'Edit Product' : 'Add Product' ?></title>
-  <link rel="stylesheet" href="../CSS/dashboard.css">
+  <link rel="stylesheet" href="/Wafra/CSS/dashboard.css">
 </head>
 <body>
 

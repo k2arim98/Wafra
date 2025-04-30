@@ -47,5 +47,5 @@ if ($check_result->num_rows > 0) {
 $conn->close();
 
 // Redirect to cart page
-header("Location: ../HTML/cart.php");
+header("Location: /Wafra/HTML/cart.php");
 exit;

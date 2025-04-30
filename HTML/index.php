@@ -5,27 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wafra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="/Wafra/CSS/styles.css">
 </head>
 <body>
     <!-- navbar -->
     <nav class="navbar">
-        <div class="logo">
-            <img src="../images/logo.png" alt="Logo" class="logo-img">
-            <span>Wafra </span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#">Accueil</a></li>
-            <li><a href="#products">Produits</a></li>
-            <li><a href="#social">Contact</a></li>
-            <li><a href="loginRegisterPage.html">Compte</a></li>
+    <div class="logo">
+        <img src="/Wafra/images/logo.png" alt="Logo" class="logo-img">
+        <span>Wafra</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="/Wafra/HTML/index.html">Accueil</a></li>
+        <li><a href="/Wafra/HTML/Products.php">Produits</a></li>
+        <li><a href="#social">Contact</a></li>
+        <li><a href="/Wafra/PHP/logout.php">Logout</a></li>
+    </ul>
 
-        </ul>
-    </nav>
+    <form action="/Wafra/HTML/Products.php" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="Search products..." required>
+        <button type="submit">🔍</button>
+    </form>
+</nav>
+
         
     <!-- Animation Section -->
     <div class="hero">
-        <img src="../images/background.webp" alt="Hero Background" class="hero-image">
+        <img src="/Wafra/images/background.webp" alt="Hero Background" class="hero-image">
         <div class="hero-content">
             <h1>👉 Rayonnez avec <span id="dynamic-text">Éclat & Saveur</span></h1>
             <p>💄✨ Prenez soin de vous, régalez-vous – parce que vous méritez l'excellence !</p>
@@ -40,14 +45,14 @@
             <div class="product-grid">
                 <!-- Alimentaires -->
                 <div class="product-item">
-                    <img src="../images/Alimentaires.jpg" alt="Produit Alimentaire">
+                    <img src="/Wafra/images/Alimentaires.jpg" alt="Produit Alimentaire">
                     <h3>Produits Alimentaires</h3>
                     <p>Découvrez une sélection de produits alimentaires de qualité, parfaits pour une alimentation saine et équilibrée.</p>
                     <a href="Products.php" class="cta-button">Voir Plus</a>
                 </div>
                 <!-- Cosmétiques -->
                 <div class="product-item">
-                    <img src="../images/cosmetique.jpg" alt="Produit Cosmétiques">
+                    <img src="/Wafra/images/cosmetique.jpg" alt="Produit Cosmétiques">
                     <h3>Produits Cosmétiques</h3>
                     <p>Offrez à votre peau le soin qu’elle mérite avec notre gamme de produits cosmétiques de haute qualité.</p>
                     <a href="Products.php" class="cta-button">Voir Plus</a>
@@ -94,6 +99,6 @@
 
 <!-- Footer Section -->
 
-    <script src="../JS/scripts.js"></script>
+    <script src="/Wafra/JS/scripts.js"></script>
 </body>
 </html>

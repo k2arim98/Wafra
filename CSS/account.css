@@ -1,10 +1,18 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+html, body {
+    height: 100%;
     margin: 0;
-    padding: 40px;
+    
+}
+
+body {
+    
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
     color: #333;
 }
+
 .navbar {
     display: flex;
     align-items: center;

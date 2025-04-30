@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
             products.forEach(product => {
                 const productHTML = `
                     <div class="product-item">
-                        <img src="../${product.image}" alt="${product.name}">
+                        <img src="/Wafra/${product.image}" alt="${product.name}">
                         <h3>${product.name}</h3>
                         <p>$${product.price}</p>
                         <a href="details_page.html?id=${product.id}" class="cta-button">View Details</a>
@@ -28,13 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    fetch(`../PHP/products.php?id=${productId}`)
+    fetch(`/Wafra/PHP/products.php?id=${productId}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
                 alert(data.error);
             } else {
-                document.getElementById("product-image").src = "../images/" + data.image;
+                document.getElementById("product-image").src = "/Wafra/images/" + data.image;
                 document.getElementById("product-title").textContent = data.name;
                 document.getElementById("product-description").textContent = data.description;
                 document.getElementById("product-price").textContent = "Prix: " + data.price + " DA";

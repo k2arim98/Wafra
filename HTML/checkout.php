@@ -31,12 +31,12 @@ foreach ($items as $item) {
 <head>
     <meta charset="UTF-8">
     <title>Passer à la Caisse - Wafra</title>
-    <link rel="stylesheet" href="../CSS/cart.css">
+    <link rel="stylesheet" href="/Wafra/CSS/cart.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="../images/logo.png" alt="Logo" class="logo-img">
+            <img src="/Wafra/images/logo.png" alt="Logo" class="logo-img">
             <span>Wafra</span>
         </div>
     </nav>
