@@ -10,6 +10,10 @@ if (!isset($_SESSION['user_email']) || $_SESSION['is_admin'] != 1) {
 // Fetch all users
 $users = $conn->query("SELECT * FROM users")->fetch_all(MYSQLI_ASSOC);
 
+// Fetch All messages
+$sql = "SELECT * FROM messages ORDER BY sent_at DESC";
+$messages = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
 // Fetch all products
 $products = $conn->query("SELECT * FROM products")->fetch_all(MYSQLI_ASSOC);
 
@@ -58,21 +62,36 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
   </section>
 
   <section>
-    <h2>Shopping History</h2>
-    <table>
-      <tr><th>User</th><th>Email</th><th>Product</th><th>Quantity</th><th>Price</th><th>Date</th></tr>
-      <?php foreach ($orders as $order): ?>
-        <tr>
-          <td><?= htmlspecialchars($order['full_name']) ?></td>
-          <td><?= htmlspecialchars($order['user_email']) ?></td>
-          <td><?= htmlspecialchars($order['product_name']) ?></td>
-          <td><?= $order['quantity'] ?></td>
-          <td>$<?= number_format($order['price'], 2) ?></td>
-          <td><?= $order['created_at'] ?></td>
-        </tr>
-      <?php endforeach; ?>
-    </table>
-  </section>
+  <h2>Shopping History</h2>
+  <table>
+    <tr>
+      <th>User</th><th>Email</th><th>Product</th><th>Quantity</th><th>Price</th><th>Date</th><th>Status</th><th>Actions</th>
+    </tr>
+    <?php foreach ($orders as $order): ?>
+      <tr>
+        <td><?= htmlspecialchars($order['full_name']) ?></td>
+        <td><?= htmlspecialchars($order['user_email']) ?></td>
+        <td><?= htmlspecialchars($order['product_name']) ?></td>
+        <td><?= $order['quantity'] ?></td>
+        <td>$<?= number_format($order['price'], 2) ?></td>
+        <td><?= $order['created_at'] ?></td>
+        <td><?= ucfirst($order['status']) ?></td>
+        <td>
+          <?php if ($order['status'] === 'pending'): ?>
+            <form method="post" action="/Wafra/PHP/update_order_status.php" style="display:inline;">
+              <input type="hidden" name="cart_id" value="<?= $order['id'] ?>">
+              <button type="submit" name="action" value="confirm">✅ Confirm</button>
+              <button type="submit" name="action" value="cancel" onclick="return confirm('Cancel this order?')">❌ Cancel</button>
+            </form>
+          <?php else: ?>
+            <em><?= ucfirst($order['status']) ?></em>
+          <?php endif; ?>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
+</section>
+
 
   <section>
     <h2>Products</h2>
@@ -100,9 +119,24 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
         <a href="/Wafra/PHP/add_product.php?delete=<?= $product['id'] ?>" onclick="return confirm('Delete this product?')">Delete</a>
       </td>
     </tr>
-  <?php endforeach; ?>
-</table>
-
+    <?php endforeach; ?>
+  </table>
   </section>
+
+  <section>
+    <h2>User Messages</h2>
+    <?php if (count($messages) > 0): ?>
+      <?php foreach ($messages as $msg): ?>
+        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+          <strong><?= htmlspecialchars($msg['user_email']) ?></strong>
+          <p><?= nl2br(htmlspecialchars($msg['message'])) ?></p>
+          <small><?= htmlspecialchars($msg['sent_at']) ?></small>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p>No messages yet.</p>
+    <?php endif; ?>
+  </section>
+
 </body>
 </html>

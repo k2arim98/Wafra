@@ -18,13 +18,8 @@
         <li><a href="/Wafra/HTML/index.html">Accueil</a></li>
         <li><a href="/Wafra/HTML/Products.php">Produits</a></li>
         <li><a href="#social">Contact</a></li>
-        <li><a href="/Wafra/PHP/logout.php">Logout</a></li>
+        <li><a href="loginRegisterPage.html">Connexion</a></li>
     </ul>
-
-    <form action="/Wafra/HTML/Products.php" method="GET" class="search-form">
-        <input type="text" name="q" placeholder="Search products..." required>
-        <button type="submit">🔍</button>
-    </form>
 </nav>
 
         

@@ -54,9 +54,14 @@ $conn->close();
                     <p class="product-description"><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
                     <p class="product-price">Prix: $<?php echo number_format($product['price'], 2); ?></p>
                     <h4><?php echo $product['category']; ?></h4>
-                    <a href="/Wafra/PHP/add_to_cart.php?id=<?php echo $product['id']; ?>" class="cta-button">
-    Ajouter au panier
-</a>
+                    <form action="/Wafra/PHP/add_to_cart.php" method="POST" class="add-to-cart-form">
+    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+    
+    <label for="quantity">Quantité:</label>
+    <input type="number" name="quantity" id="quantity" value="1" min="1" required>
+
+    <button type="submit" class="cta-button">Ajouter au panier</button>
+</form>
 
                 </div>
             </div>
