@@ -26,19 +26,30 @@ $cart_stmt->execute();
 $cart_result = $cart_stmt->get_result();
 
 while ($item = $cart_result->fetch_assoc()) {
-    $insert_item = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)");
-    $insert_item->bind_param("iii", $order_id, $item['product_id'], $item['quantity']);
-    $insert_item->execute();
+    $check_product = $conn->prepare("SELECT id FROM products WHERE id = ?");
+    $check_product->bind_param("i", $item['product_id']);
+    $check_product->execute();
+    $check_product->store_result();
+
+    if ($check_product->num_rows > 0) {
+        $insert_item = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)");
+        $insert_item->bind_param("iii", $order_id, $item['product_id'], $item['quantity']);
+        $insert_item->execute();
+        $insert_item->close();
+    } else {
+        error_log("Product ID " . $item['product_id'] . " does not exist and was skipped.");
+    }
+
+    $check_product->close();
 }
 
-// Clear cart
+
 $clear_cart = $conn->prepare("DELETE FROM cart WHERE user_email = ?");
 $clear_cart->bind_param("s", $email);
 $clear_cart->execute();
 
 $conn->close();
 
-// Redirect or confirm
 header("Location: /Wafra/HTML/order_success.php");
 exit;
 ?>

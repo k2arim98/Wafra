@@ -41,7 +41,7 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
             <li><a href="/Wafra/HTML/index.php">Accueil</a></li>
             <li><a href="/Wafra/HTML//Products.php">Produits</a></li>
             <li><a href="#social">Contact</a></li>
-            <li><a href="/Wafra/HTML/loginRegisterPage.html">Compte</a></li>
+            <li><a href="/Wafra/HTML/account.php">Compte</a></li>
 
         </ul>
     </nav>

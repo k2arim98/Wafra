@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_email'])) {
+    header("Location: loginRegisterPage.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +26,7 @@
         <li><a href="/Wafra/HTML/index.html">Accueil</a></li>
         <li><a href="/Wafra/HTML/Products.php">Produits</a></li>
         <li><a href="#social">Contact</a></li>
-        <li><a href="loginRegisterPage.html">Connexion</a></li>
+        <li><a href="account.php">Compte</a></li>
     </ul>
 </nav>
 

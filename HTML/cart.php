@@ -20,16 +20,22 @@ $stmt->execute();
 $result = $stmt->get_result();
 $items = $result->fetch_all(MYSQLI_ASSOC);
 
-// Remove item from cart
 if (isset($_GET['remove'])) {
     $remove_id = intval($_GET['remove']);
-    unset($_SESSION['cart'][$remove_id]);
+
+    $delete_stmt = $conn->prepare("DELETE FROM cart WHERE user_email = ? AND id = ?");
+    $delete_stmt->bind_param("si", $email, $remove_id);
+    $delete_stmt->execute();
 }
+
 
 // Clear cart
 if (isset($_GET['clear'])) {
-    $_SESSION['cart'] = [];
+    $clear_stmt = $conn->prepare("DELETE FROM cart WHERE user_email = ?");
+    $clear_stmt->bind_param("s", $email);
+    $clear_stmt->execute();
 }
+
 
 $conn->close();
 ?>

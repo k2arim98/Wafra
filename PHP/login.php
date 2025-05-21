@@ -33,9 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['full_name'];
         $_SESSION['user_email'] = $email; 
-        $_SESSION['is_admin'] = $user['is_admin'];          
+        $_SESSION['is_admin'] = $user['is_admin'];    
+        
+        $redirect_url = $user['is_admin'] ? '/Wafra/admin/dashboard.php' : 'index.php';
 
-        echo json_encode(["status" => "success", "message" => "Login successful!"]);
+        echo json_encode(["status" => "success", "message" => "Login successful!","redirect" => $redirect_url]);
     } else {
         echo json_encode(["status" => "error", "message" => "Invalid email or password!"]);
     }

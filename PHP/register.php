@@ -41,7 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_name'] = $full_name;
         $_SESSION['user_email'] = $email;
 
-        echo json_encode(["status" => "success", "message" => "Registration successful!"]);
+        $redirect_url = 'index.php';
+
+        echo json_encode(["status" => "success", "message" => "Registration successful!","redirect" => $redirect_url]);
     } else {
         echo json_encode(["status" => "error", "message" => "Error during registration!"]);
     }

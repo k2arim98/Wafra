@@ -55,10 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (result.status === "success") {
             alert(result.message);
-            window.location.href = "./Products.php";
+            window.location.href = result.redirect; 
         } else {
             alert(result.message);
         }
+
     }
 
     // Handle login form submission
