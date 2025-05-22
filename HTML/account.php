@@ -14,18 +14,24 @@ $stmt = $conn->prepare("SELECT id, full_name, email FROM users WHERE email = ?")
 $stmt->bind_param("s", $user_email);
 $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
-$user_id = $user['id']; // Needed for order history
+$user_id = $user['id']; 
 
 
 // Fetch purchase history from orders + order_items
 $purchases = $conn->prepare("
-    SELECT p.name, p.price, oi.quantity, o.order_date AS created_at
+    SELECT 
+        p.name, 
+        p.price, 
+        oi.quantity, 
+        o.order_date AS created_at,
+        o.status AS cart_status
     FROM orders o
     JOIN order_items oi ON o.id = oi.order_id
     JOIN products p ON oi.product_id = p.id
     WHERE o.email = ?
     ORDER BY o.order_date DESC
 ");
+
 $purchases->bind_param("s", $user_email);
 $purchases->execute();
 $purchase_history = $purchases->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -52,22 +58,26 @@ $purchase_history = $purchases->get_result()->fetch_all(MYSQLI_ASSOC);
 
         </ul>
     </nav>
-    <h1>Welcome, <?= htmlspecialchars($user['full_name']) ?></h1>
-    <p>Email: <?= htmlspecialchars($user['email']) ?></p>
-
-
+    <section>
+        <h1>Welcome, <?= htmlspecialchars($user['full_name']) ?></h1>
+        <p>Email: <?= htmlspecialchars($user['email']) ?></p>
+    </section>
+    
+    <section>
     <h2>📦 Purchase History</h2>
     <table>
-        <tr><th>Product</th><th>Price</th><th>Quantity</th><th>Date</th></tr>
+        <tr><th>Product</th><th>Price</th><th>Quantity</th><th>Date</th><th>Status</th></tr>
         <?php foreach ($purchase_history as $purchase): ?>
             <tr>
                 <td><?= htmlspecialchars($purchase['name']) ?></td>
                 <td>$<?= number_format($purchase['price'], 2) ?></td>
                 <td><?= $purchase['quantity'] ?></td>
                 <td><?= $purchase['created_at'] ?></td>
+                <td><?= $purchase['cart_status']?></td>
             </tr>
         <?php endforeach; ?>
     </table>
+        </section>
 
 </body>
 </html>

@@ -1,4 +1,3 @@
-<!-- admin_panel.php -->
 <?php
 session_start();
 include '../PHP/config.php';
@@ -18,11 +17,24 @@ $messages = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
 $products = $conn->query("SELECT * FROM products")->fetch_all(MYSQLI_ASSOC);
 
 // Fetch order history
-$orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price 
-                        FROM cart c
-                        JOIN users u ON u.email = c.user_email
-                        JOIN products p ON p.id = c.product_id
-                        ORDER BY c.created_at DESC")->fetch_all(MYSQLI_ASSOC);
+$orders = $conn->query("
+    SELECT 
+        o.id AS order_id,
+        o.full_name,
+        o.email as user_email,
+        o.order_date as created_at,
+        o.status AS status,
+        u.full_name AS full_name,
+        p.name AS product_name,
+        p.price,
+        oi.quantity
+    FROM orders o
+    JOIN users u ON u.id = o.user_id
+    JOIN order_items oi ON oi.order_id = o.id
+    JOIN products p ON p.id = oi.product_id
+    ORDER BY o.order_date DESC
+")->fetch_all(MYSQLI_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,11 +90,13 @@ $orders = $conn->query("SELECT c.*, u.full_name, p.name AS product_name, p.price
         <td><?= ucfirst($order['status']) ?></td>
         <td>
           <?php if ($order['status'] === 'pending'): ?>
-            <form method="post" action="/Wafra/PHP/update_order_status.php" style="display:inline;">
-              <input type="hidden" name="cart_id" value="<?= $order['id'] ?>">
-              <button type="submit" name="action" value="confirm">✅ Confirm</button>
-              <button type="submit" name="action" value="cancel" onclick="return confirm('Cancel this order?')">❌ Cancel</button>
-            </form>
+           <form method="post" action="/Wafra/PHP/update_order_status.php" style="display:inline;">
+            <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
+            <button type="submit" name="action" value="confirm">✅ Confirm</button>
+            <button type="submit" name="action" value="cancel" onclick="return confirm('Cancel this order?')">❌ Cancel</button>
+          </form>
+
+
           <?php else: ?>
             <em><?= ucfirst($order['status']) ?></em>
           <?php endif; ?>

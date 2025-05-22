@@ -1,15 +1,15 @@
 <?php
 include 'config.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_id'], $_POST['action'])) {
-    $cartId = (int) $_POST['cart_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'], $_POST['action'])) {
+    $orderId = (int) $_POST['order_id'];
     $action = $_POST['action'];
 
     if (in_array($action, ['confirm', 'cancel'])) {
         $status = $action === 'confirm' ? 'confirmed' : 'cancelled';
 
-        $stmt = $conn->prepare("UPDATE cart SET status = ? WHERE id = ?");
-        $stmt->bind_param('si', $status, $cartId);
+        $stmt = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?");
+        $stmt->bind_param('si', $status, $orderId);
         $stmt->execute();
     }
 }
